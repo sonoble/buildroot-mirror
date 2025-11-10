@@ -331,6 +331,10 @@ source "package/python-pygame/Config.in"
 source "package/python-pyparsing/Config.in"
 source "package/python-serial/Config.in"
 source "package/python-setuptools/Config.in"
+source "package/python-pyparted/Config.in"
+source "package/python-dnspython/Config.in"
+source "package/python-yaml/Config.in"
+source "package/python-pyroute2/Config.in"
 endmenu
 endif
 source "package/ruby/Config.in"

@@ -115,7 +115,9 @@ define HOST_NCURSES_BUILD_CMDS
 endef
 
 HOST_NCURSES_CONF_OPT = \
-	--without-shared --without-gpm
+	--without-shared --without-gpm \
+	--without-cxx \
+	--without-cxx-binding
 
 $(eval $(autotools-package))
 $(eval $(host-autotools-package))

@@ -5,7 +5,7 @@
 #############################################################
 
 DOSFSTOOLS_VERSION = 3.0.12
-DOSFSTOOLS_SITE = http://fossies.org/linux/misc/
+DOSFSTOOLS_SITE = http://downloads.openwrt.org/sources
 DOSFSTOOLS_LICENSE = GPLv3+
 DOSFSTOOLS_LICENSE_FILES = COPYING
 MKDOSFS_BINARY = mkdosfs

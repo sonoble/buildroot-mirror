@@ -1,12 +1,22 @@
 #############################################################
 #
-# fakeroot
+# fakeroot - use system fakeroot instead of building
 #
 #############################################################
 FAKEROOT_VERSION = 1.18.2
-FAKEROOT_SOURCE = fakeroot_$(FAKEROOT_VERSION).orig.tar.bz2
-FAKEROOT_SITE = http://snapshot.debian.org/archive/debian/20111201T093630Z/pool/main/f/fakeroot/
+FAKEROOT_SOURCE =
+FAKEROOT_SITE =
 FAKEROOT_LICENSE = GPLv3+
-FAKEROOT_LICENSE_FILES = COPYING
 
-$(eval $(host-autotools-package))
+# Override all build steps to do nothing and use system fakeroot
+HOST_FAKEROOT_EXTRACT_CMDS = true
+HOST_FAKEROOT_CONFIGURE_CMDS = true
+HOST_FAKEROOT_BUILD_CMDS = true
+
+define HOST_FAKEROOT_INSTALL_CMDS
+	mkdir -p $(HOST_DIR)/usr/bin
+	ln -sf /usr/bin/fakeroot $(HOST_DIR)/usr/bin/fakeroot || true
+	ln -sf /usr/bin/faked $(HOST_DIR)/usr/bin/faked || true
+endef
+
+$(eval $(host-generic-package))

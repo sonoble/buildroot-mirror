@@ -5,8 +5,8 @@
 #############################################################
 
 UEMACS_VERSION = 4.0.15-lt
-UEMACS_SOURCE = em-$(UEMACS_VERSION).tar.bz2
-UEMACS_SITE = $(BR2_KERNEL_MIRROR)/software/editors/uemacs/
+UEMACS_SOURCE = em-$(UEMACS_VERSION).tar.gz
+UEMACS_SITE = http://www.kernel.org/pub/linux/kernel/uemacs
 UEMACS_DEPENDENCIES = ncurses
 
 define UEMACS_BUILD_CMDS

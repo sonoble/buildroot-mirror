@@ -1,0 +1,55 @@
+Fix fakeroot compatibility with glibc 2.33+
+
+glibc 2.33 and later removed the _STAT_VER definitions that fakeroot relied on
+to determine which stat/stat64 variants to intercept. This causes build failures
+on modern Linux distributions.
+
+The fix defines _STAT_VER locally based on the architecture when it's not
+provided by glibc, allowing fakeroot to work with both old and new glibc versions.
+
+This fixes the error:
+  libfakeroot.c:757:20: error: '_STAT_VER' undeclared (first use in this function)
+
+Signed-off-by: Claude Code <noreply@anthropic.com>
+
+--- a/libfakeroot.c
++++ b/libfakeroot.c
+@@ -90,6 +90,38 @@
+
+ #define SEND_GET_XATTR64(a,b,c) send_get_xattr64(a,b)
+
++/* glibc 2.33+ no longer defines _STAT_VER, so we need to provide our own */
++#ifndef _STAT_VER
++ #if defined(__aarch64__)
++  #define _STAT_VER 0
++ #elif defined(__x86_64__)
++  #define _STAT_VER 1
++ #elif defined(__i386__)
++  #define _STAT_VER 3
++ #elif defined(__arm__)
++  #define _STAT_VER 3
++ #elif defined(__powerpc__) && !defined(__powerpc64__)
++  #define _STAT_VER 3
++ #elif defined(__powerpc64__)
++  #define _STAT_VER 1
++ #elif defined(__mips__)
++  #if defined(__mips64)
++   #define _STAT_VER 1
++  #else
++   #define _STAT_VER 3
++  #endif
++ #elif defined(__s390x__)
++  #define _STAT_VER 1
++ #elif defined(__s390__)
++  #define _STAT_VER 3
++ #elif defined(__sparc__) && defined(__arch64__)
++  #define _STAT_VER 1
++ #elif defined(__sparc__)
++  #define _STAT_VER 3
++ #else
++  #define _STAT_VER 3
++ #endif
++#endif
+
+ /*
+    These INT_* (which stands for internal) macros should always be used when
