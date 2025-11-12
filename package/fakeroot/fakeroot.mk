@@ -4,8 +4,8 @@
 #
 #############################################################
 FAKEROOT_VERSION = 1.18.2
-FAKEROOT_SOURCE =
-FAKEROOT_SITE =
+FAKEROOT_SOURCE = fakeroot_$(FAKEROOT_VERSION).orig.tar.bz2
+FAKEROOT_SITE = file://$(TOPDIR)/dl
 FAKEROOT_LICENSE = GPLv3+
 
 # Override all build steps to do nothing and use system fakeroot

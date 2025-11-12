@@ -1,0 +1,24 @@
+Fix gnu_inline attribute error in cfns.h
+
+When building GCC 4.7.2 with modern GCC, there's a conflict with the
+gnu_inline attribute. The function declaration at line 57 needs to match
+the function definition at line 132 which includes __attribute__((__gnu_inline__)).
+
+This fixes the error:
+cfns.gperf:101:1: error: 'gnu_inline' attribute present on 'libc_name_p'
+cfns.gperf:26:14: error: but not here
+
+Signed-off-by: Claude Code <noreply@anthropic.com>
+
+--- a/gcc/cp/cfns.h
++++ b/gcc/cp/cfns.h
+@@ -53,6 +53,9 @@ static unsigned int hash (const char *, unsigned int);
+ static unsigned int hash (const char *, unsigned int);
+ #ifdef __GNUC__
+ __inline
++#ifdef __GNUC_STDC_INLINE__
++__attribute__ ((__gnu_inline__))
++#endif
+ #endif
+ const char * libc_name_p (const char *, unsigned int);
+ /* maximum key range = 391, duplicates = 0 */
