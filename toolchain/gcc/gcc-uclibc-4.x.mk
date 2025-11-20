@@ -322,9 +322,9 @@ $(GCC_BUILD_DIR1)/.configured: $(GCC_DIR)/.patched
 $(GCC_BUILD_DIR1)/.compiled: $(GCC_BUILD_DIR1)/.configured
 	$(Q)$(call MESSAGE,"Building gcc pass-1")
 ifeq ($(BR2_GCC_SUPPORTS_FINEGRAINEDMTUNE),y)
-	$(GCC_CONF_ENV) $(MAKE) -C $(GCC_BUILD_DIR1) MAKEINFO=true CFLAGS="-Wno-implicit-fallthrough" all-gcc
+	$(GCC_CONF_ENV) $(MAKE) -C $(GCC_BUILD_DIR1) MAKEINFO=true all-gcc
 else
-	$(MAKE) -C $(GCC_BUILD_DIR1) MAKEINFO=true CFLAGS="-Wno-implicit-fallthrough" all-gcc
+	$(MAKE) -C $(GCC_BUILD_DIR1) MAKEINFO=true all-gcc
 endif
 	touch $@
 
@@ -392,9 +392,9 @@ $(GCC_BUILD_DIR2)/.compiled: $(GCC_BUILD_DIR2)/.configured
 	$(Q)$(call MESSAGE,"Building gcc pass-2")
 	# gcc >= 4.3.0 have to also build all-target-libgcc
 ifeq ($(BR2_GCC_SUPPORTS_FINEGRAINEDMTUNE),y)
-	$(GCC_CONF_ENV) $(MAKE) -C $(GCC_BUILD_DIR2) MAKEINFO=true CFLAGS="-Wno-implicit-fallthrough" all-gcc all-target-libgcc
+	$(GCC_CONF_ENV) $(MAKE) -C $(GCC_BUILD_DIR2) MAKEINFO=true all-gcc all-target-libgcc
 else
-	$(MAKE) -C $(GCC_BUILD_DIR2) MAKEINFO=true CFLAGS="-Wno-implicit-fallthrough" all-gcc
+	$(MAKE) -C $(GCC_BUILD_DIR2) MAKEINFO=true all-gcc
 endif
 	touch $@
 
@@ -470,7 +470,7 @@ $(GCC_BUILD_DIR3)/.configured: $(GCC_SRC_DIR)/.patched $(GCC_STAGING_PREREQ)
 
 $(GCC_BUILD_DIR3)/.compiled: $(GCC_BUILD_DIR3)/.configured
 	$(Q)$(call MESSAGE,"Building gcc final")
-	$(GCC_CONF_ENV) $(MAKE) -C $(GCC_BUILD_DIR3) MAKEINFO=true CFLAGS="-Wno-implicit-fallthrough" all
+	$(GCC_CONF_ENV) $(MAKE) -C $(GCC_BUILD_DIR3) MAKEINFO=true all
 	touch $@
 
 $(GCC_BUILD_DIR3)/.installed: $(GCC_BUILD_DIR3)/.compiled
