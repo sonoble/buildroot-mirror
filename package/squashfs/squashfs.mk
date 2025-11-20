@@ -1,4 +1,4 @@
-SQUASHFS_VERSION=4.4
+SQUASHFS_VERSION=4.2
 SQUASHFS_SOURCE=squashfs$(SQUASHFS_VERSION).tar.gz
 SQUASHFS_SITE=http://downloads.sourceforge.net/projct/squashfs/squashfs/squashfs$(SQUASHFS_VERSION)
 
